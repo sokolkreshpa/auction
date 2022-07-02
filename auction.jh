@@ -46,16 +46,10 @@ entity Bid {
     ccy String,
 }
 
-entity Users
-{
-username String,
-name String,
-surname String,
-tel String,
-email String,
-ssn String,
-status String
+entity Users{
+userName String
 }
+
 
 relationship OneToMany {
 	ProductCategory{id} to Product{productCategoryId}
@@ -73,12 +67,8 @@ relationship OneToMany {
 	Auction{id} to Bid{auctionId}
 }
 
-relationship OneToOne {
-	Bid{userId} to Users{id}
-}
 // Set pagination options
 paginate Auction, Product with infinite-scroll
-paginate Users with pagination
 
 // Use Data Transfer Objects (DTO)
 // dto * with mapstruct
