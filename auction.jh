@@ -46,10 +46,6 @@ entity Bid {
     ccy String,
 }
 
-entity Users{
-userName String
-}
-
 
 relationship OneToMany {
 	ProductCategory{id} to Product{productCategoryId}
