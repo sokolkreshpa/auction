@@ -39,19 +39,6 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" jhiTranslate="auctionApp.bid.userId" for="field_userId">User Id</label>
-          <select class="form-control" id="field_userId" data-cy="userId" name="userId" formControlName="userId">
-            <option [ngValue]="null"></option>
-            <option
-              [ngValue]="usersOption.id === editForm.get('userId')!.value?.id ? editForm.get('userId')!.value : usersOption"
-              *ngFor="let usersOption of userIdsCollection; trackBy: trackUsersById"
-            >
-              {{ usersOption.id }}
-            </option>
-          </select>
-        </div>
-
-        <div class="row mb-3">
           <label class="form-label" jhiTranslate="auctionApp.bid.auctionId" for="field_auctionId">Auction Id</label>
           <select class="form-control" id="field_auctionId" data-cy="auctionId" name="auctionId" formControlName="auctionId">
             <option [ngValue]="null"></option>

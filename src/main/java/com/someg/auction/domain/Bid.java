@@ -31,11 +31,6 @@ public class Bid implements Serializable {
     @Column(name = "ccy")
     private String ccy;
 
-    @JsonIgnoreProperties(value = { "id" }, allowSetters = true)
-    @OneToOne
-    @JoinColumn(unique = true)
-    private Users userId;
-
     @ManyToOne
     @JsonIgnoreProperties(value = { "ids", "productId" }, allowSetters = true)
     private Auction auctionId;
@@ -92,19 +87,6 @@ public class Bid implements Serializable {
 
     public void setCcy(String ccy) {
         this.ccy = ccy;
-    }
-
-    public Users getUserId() {
-        return this.userId;
-    }
-
-    public void setUserId(Users users) {
-        this.userId = users;
-    }
-
-    public Bid userId(Users users) {
-        this.setUserId(users);
-        return this;
     }
 
     public Auction getAuctionId() {

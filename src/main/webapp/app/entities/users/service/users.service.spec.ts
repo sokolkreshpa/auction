@@ -21,13 +21,7 @@ describe('Users Service', () => {
 
     elemDefault = {
       id: 0,
-      username: 'AAAAAAA',
-      name: 'AAAAAAA',
-      surname: 'AAAAAAA',
-      tel: 'AAAAAAA',
-      email: 'AAAAAAA',
-      ssn: 'AAAAAAA',
-      status: 'AAAAAAA',
+      userName: 'AAAAAAA',
     };
   });
 
@@ -63,13 +57,7 @@ describe('Users Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          username: 'BBBBBB',
-          name: 'BBBBBB',
-          surname: 'BBBBBB',
-          tel: 'BBBBBB',
-          email: 'BBBBBB',
-          ssn: 'BBBBBB',
-          status: 'BBBBBB',
+          userName: 'BBBBBB',
         },
         elemDefault
       );
@@ -84,14 +72,7 @@ describe('Users Service', () => {
     });
 
     it('should partial update a Users', () => {
-      const patchObject = Object.assign(
-        {
-          name: 'BBBBBB',
-          surname: 'BBBBBB',
-          status: 'BBBBBB',
-        },
-        new Users()
-      );
+      const patchObject = Object.assign({}, new Users());
 
       const returnedFromService = Object.assign(patchObject, elemDefault);
 
@@ -108,13 +89,7 @@ describe('Users Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          username: 'BBBBBB',
-          name: 'BBBBBB',
-          surname: 'BBBBBB',
-          tel: 'BBBBBB',
-          email: 'BBBBBB',
-          ssn: 'BBBBBB',
-          status: 'BBBBBB',
+          userName: 'BBBBBB',
         },
         elemDefault
       );
@@ -166,7 +141,7 @@ describe('Users Service', () => {
       });
 
       it('should add only unique Users to an array', () => {
-        const usersArray: IUsers[] = [{ id: 123 }, { id: 456 }, { id: 12347 }];
+        const usersArray: IUsers[] = [{ id: 123 }, { id: 456 }, { id: 50766 }];
         const usersCollection: IUsers[] = [{ id: 123 }];
         expectedResult = service.addUsersToCollectionIfMissing(usersCollection, ...usersArray);
         expect(expectedResult).toHaveLength(3);

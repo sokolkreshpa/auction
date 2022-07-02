@@ -23,9 +23,6 @@
             <column name="ccy" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="user_id_id" type="bigint">
-                <constraints nullable="true" unique="true" uniqueConstraintName="ux_bid__user_id_id" />
-            </column>
             <column name="auction_id_id" type="bigint">
                 <constraints nullable="true" />
             </column>

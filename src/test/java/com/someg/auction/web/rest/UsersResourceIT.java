@@ -29,26 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class UsersResourceIT {
 
-    private static final String DEFAULT_USERNAME = "AAAAAAAAAA";
-    private static final String UPDATED_USERNAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_NAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_SURNAME = "AAAAAAAAAA";
-    private static final String UPDATED_SURNAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_TEL = "AAAAAAAAAA";
-    private static final String UPDATED_TEL = "BBBBBBBBBB";
-
-    private static final String DEFAULT_EMAIL = "AAAAAAAAAA";
-    private static final String UPDATED_EMAIL = "BBBBBBBBBB";
-
-    private static final String DEFAULT_SSN = "AAAAAAAAAA";
-    private static final String UPDATED_SSN = "BBBBBBBBBB";
-
-    private static final String DEFAULT_STATUS = "AAAAAAAAAA";
-    private static final String UPDATED_STATUS = "BBBBBBBBBB";
+    private static final String DEFAULT_USER_NAME = "AAAAAAAAAA";
+    private static final String UPDATED_USER_NAME = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/users";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -74,14 +56,7 @@ class UsersResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Users createEntity(EntityManager em) {
-        Users users = new Users()
-            .username(DEFAULT_USERNAME)
-            .name(DEFAULT_NAME)
-            .surname(DEFAULT_SURNAME)
-            .tel(DEFAULT_TEL)
-            .email(DEFAULT_EMAIL)
-            .ssn(DEFAULT_SSN)
-            .status(DEFAULT_STATUS);
+        Users users = new Users().userName(DEFAULT_USER_NAME);
         return users;
     }
 
@@ -92,14 +67,7 @@ class UsersResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Users createUpdatedEntity(EntityManager em) {
-        Users users = new Users()
-            .username(UPDATED_USERNAME)
-            .name(UPDATED_NAME)
-            .surname(UPDATED_SURNAME)
-            .tel(UPDATED_TEL)
-            .email(UPDATED_EMAIL)
-            .ssn(UPDATED_SSN)
-            .status(UPDATED_STATUS);
+        Users users = new Users().userName(UPDATED_USER_NAME);
         return users;
     }
 
@@ -121,13 +89,7 @@ class UsersResourceIT {
         List<Users> usersList = usersRepository.findAll();
         assertThat(usersList).hasSize(databaseSizeBeforeCreate + 1);
         Users testUsers = usersList.get(usersList.size() - 1);
-        assertThat(testUsers.getUsername()).isEqualTo(DEFAULT_USERNAME);
-        assertThat(testUsers.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testUsers.getSurname()).isEqualTo(DEFAULT_SURNAME);
-        assertThat(testUsers.getTel()).isEqualTo(DEFAULT_TEL);
-        assertThat(testUsers.getEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(testUsers.getSsn()).isEqualTo(DEFAULT_SSN);
-        assertThat(testUsers.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testUsers.getUserName()).isEqualTo(DEFAULT_USER_NAME);
     }
 
     @Test
@@ -160,13 +122,7 @@ class UsersResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(users.getId().intValue())))
-            .andExpect(jsonPath("$.[*].username").value(hasItem(DEFAULT_USERNAME)))
-            .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].surname").value(hasItem(DEFAULT_SURNAME)))
-            .andExpect(jsonPath("$.[*].tel").value(hasItem(DEFAULT_TEL)))
-            .andExpect(jsonPath("$.[*].email").value(hasItem(DEFAULT_EMAIL)))
-            .andExpect(jsonPath("$.[*].ssn").value(hasItem(DEFAULT_SSN)))
-            .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS)));
+            .andExpect(jsonPath("$.[*].userName").value(hasItem(DEFAULT_USER_NAME)));
     }
 
     @Test
@@ -181,13 +137,7 @@ class UsersResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(users.getId().intValue()))
-            .andExpect(jsonPath("$.username").value(DEFAULT_USERNAME))
-            .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
-            .andExpect(jsonPath("$.surname").value(DEFAULT_SURNAME))
-            .andExpect(jsonPath("$.tel").value(DEFAULT_TEL))
-            .andExpect(jsonPath("$.email").value(DEFAULT_EMAIL))
-            .andExpect(jsonPath("$.ssn").value(DEFAULT_SSN))
-            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS));
+            .andExpect(jsonPath("$.userName").value(DEFAULT_USER_NAME));
     }
 
     @Test
@@ -209,14 +159,7 @@ class UsersResourceIT {
         Users updatedUsers = usersRepository.findById(users.getId()).get();
         // Disconnect from session so that the updates on updatedUsers are not directly saved in db
         em.detach(updatedUsers);
-        updatedUsers
-            .username(UPDATED_USERNAME)
-            .name(UPDATED_NAME)
-            .surname(UPDATED_SURNAME)
-            .tel(UPDATED_TEL)
-            .email(UPDATED_EMAIL)
-            .ssn(UPDATED_SSN)
-            .status(UPDATED_STATUS);
+        updatedUsers.userName(UPDATED_USER_NAME);
 
         restUsersMockMvc
             .perform(
@@ -230,13 +173,7 @@ class UsersResourceIT {
         List<Users> usersList = usersRepository.findAll();
         assertThat(usersList).hasSize(databaseSizeBeforeUpdate);
         Users testUsers = usersList.get(usersList.size() - 1);
-        assertThat(testUsers.getUsername()).isEqualTo(UPDATED_USERNAME);
-        assertThat(testUsers.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testUsers.getSurname()).isEqualTo(UPDATED_SURNAME);
-        assertThat(testUsers.getTel()).isEqualTo(UPDATED_TEL);
-        assertThat(testUsers.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testUsers.getSsn()).isEqualTo(UPDATED_SSN);
-        assertThat(testUsers.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testUsers.getUserName()).isEqualTo(UPDATED_USER_NAME);
     }
 
     @Test
@@ -307,8 +244,6 @@ class UsersResourceIT {
         Users partialUpdatedUsers = new Users();
         partialUpdatedUsers.setId(users.getId());
 
-        partialUpdatedUsers.name(UPDATED_NAME).tel(UPDATED_TEL).ssn(UPDATED_SSN).status(UPDATED_STATUS);
-
         restUsersMockMvc
             .perform(
                 patch(ENTITY_API_URL_ID, partialUpdatedUsers.getId())
@@ -321,13 +256,7 @@ class UsersResourceIT {
         List<Users> usersList = usersRepository.findAll();
         assertThat(usersList).hasSize(databaseSizeBeforeUpdate);
         Users testUsers = usersList.get(usersList.size() - 1);
-        assertThat(testUsers.getUsername()).isEqualTo(DEFAULT_USERNAME);
-        assertThat(testUsers.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testUsers.getSurname()).isEqualTo(DEFAULT_SURNAME);
-        assertThat(testUsers.getTel()).isEqualTo(UPDATED_TEL);
-        assertThat(testUsers.getEmail()).isEqualTo(DEFAULT_EMAIL);
-        assertThat(testUsers.getSsn()).isEqualTo(UPDATED_SSN);
-        assertThat(testUsers.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testUsers.getUserName()).isEqualTo(DEFAULT_USER_NAME);
     }
 
     @Test
@@ -342,14 +271,7 @@ class UsersResourceIT {
         Users partialUpdatedUsers = new Users();
         partialUpdatedUsers.setId(users.getId());
 
-        partialUpdatedUsers
-            .username(UPDATED_USERNAME)
-            .name(UPDATED_NAME)
-            .surname(UPDATED_SURNAME)
-            .tel(UPDATED_TEL)
-            .email(UPDATED_EMAIL)
-            .ssn(UPDATED_SSN)
-            .status(UPDATED_STATUS);
+        partialUpdatedUsers.userName(UPDATED_USER_NAME);
 
         restUsersMockMvc
             .perform(
@@ -363,13 +285,7 @@ class UsersResourceIT {
         List<Users> usersList = usersRepository.findAll();
         assertThat(usersList).hasSize(databaseSizeBeforeUpdate);
         Users testUsers = usersList.get(usersList.size() - 1);
-        assertThat(testUsers.getUsername()).isEqualTo(UPDATED_USERNAME);
-        assertThat(testUsers.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testUsers.getSurname()).isEqualTo(UPDATED_SURNAME);
-        assertThat(testUsers.getTel()).isEqualTo(UPDATED_TEL);
-        assertThat(testUsers.getEmail()).isEqualTo(UPDATED_EMAIL);
-        assertThat(testUsers.getSsn()).isEqualTo(UPDATED_SSN);
-        assertThat(testUsers.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testUsers.getUserName()).isEqualTo(UPDATED_USER_NAME);
     }
 
     @Test

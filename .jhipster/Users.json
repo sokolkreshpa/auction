@@ -6,47 +6,15 @@
   "entityTableName": "users",
   "fields": [
     {
-      "fieldName": "username",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "name",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "surname",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "tel",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "email",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "ssn",
-      "fieldType": "String"
-    },
-    {
-      "fieldName": "status",
+      "fieldName": "userName",
       "fieldType": "String"
     }
   ],
   "fluentMethods": true,
   "jpaMetamodelFiltering": false,
   "name": "Users",
-  "pagination": "pagination",
+  "pagination": "no",
   "readOnly": false,
-  "relationships": [
-    {
-      "otherEntityName": "bid",
-      "otherEntityRelationshipName": "userId",
-      "ownerSide": false,
-      "relationshipName": "id",
-      "relationshipType": "one-to-one"
-    }
-  ],
+  "relationships": [],
   "service": "serviceImpl"
 }

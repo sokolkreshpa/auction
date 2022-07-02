@@ -10,8 +10,6 @@ import { DATE_TIME_FORMAT } from 'app/config/input.constants';
 
 import { IBid, Bid } from '../bid.model';
 import { BidService } from '../service/bid.service';
-import { IUsers } from 'app/entities/users/users.model';
-import { UsersService } from 'app/entities/users/service/users.service';
 import { IAuction } from 'app/entities/auction/auction.model';
 import { AuctionService } from 'app/entities/auction/service/auction.service';
 
@@ -22,7 +20,6 @@ import { AuctionService } from 'app/entities/auction/service/auction.service';
 export class BidUpdateComponent implements OnInit {
   isSaving = false;
 
-  userIdsCollection: IUsers[] = [];
   auctionsSharedCollection: IAuction[] = [];
 
   editForm = this.fb.group({
@@ -30,13 +27,11 @@ export class BidUpdateComponent implements OnInit {
     bidTime: [],
     amount: [],
     ccy: [],
-    userId: [],
     auctionId: [],
   });
 
   constructor(
     protected bidService: BidService,
-    protected usersService: UsersService,
     protected auctionService: AuctionService,
     protected activatedRoute: ActivatedRoute,
     protected fb: FormBuilder
@@ -69,10 +64,6 @@ export class BidUpdateComponent implements OnInit {
     }
   }
 
-  trackUsersById(_index: number, item: IUsers): number {
-    return item.id!;
-  }
-
   trackAuctionById(_index: number, item: IAuction): number {
     return item.id!;
   }
@@ -102,21 +93,13 @@ export class BidUpdateComponent implements OnInit {
       bidTime: bid.bidTime ? bid.bidTime.format(DATE_TIME_FORMAT) : null,
       amount: bid.amount,
       ccy: bid.ccy,
-      userId: bid.userId,
       auctionId: bid.auctionId,
     });
 
-    this.userIdsCollection = this.usersService.addUsersToCollectionIfMissing(this.userIdsCollection, bid.userId);
     this.auctionsSharedCollection = this.auctionService.addAuctionToCollectionIfMissing(this.auctionsSharedCollection, bid.auctionId);
   }
 
   protected loadRelationshipsOptions(): void {
-    this.usersService
-      .query({ filter: 'id-is-null' })
-      .pipe(map((res: HttpResponse<IUsers[]>) => res.body ?? []))
-      .pipe(map((users: IUsers[]) => this.usersService.addUsersToCollectionIfMissing(users, this.editForm.get('userId')!.value)))
-      .subscribe((users: IUsers[]) => (this.userIdsCollection = users));
-
     this.auctionService
       .query()
       .pipe(map((res: HttpResponse<IAuction[]>) => res.body ?? []))
@@ -133,7 +116,6 @@ export class BidUpdateComponent implements OnInit {
       bidTime: this.editForm.get(['bidTime'])!.value ? dayjs(this.editForm.get(['bidTime'])!.value, DATE_TIME_FORMAT) : undefined,
       amount: this.editForm.get(['amount'])!.value,
       ccy: this.editForm.get(['ccy'])!.value,
-      userId: this.editForm.get(['userId'])!.value,
       auctionId: this.editForm.get(['auctionId'])!.value,
     };
   }
