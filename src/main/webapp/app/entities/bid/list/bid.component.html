@@ -36,7 +36,6 @@
           <th scope="col"><span jhiTranslate="auctionApp.bid.bidTime">Bid Time</span></th>
           <th scope="col"><span jhiTranslate="auctionApp.bid.amount">Amount</span></th>
           <th scope="col"><span jhiTranslate="auctionApp.bid.ccy">Ccy</span></th>
-          <th scope="col"><span jhiTranslate="auctionApp.bid.userId">User Id</span></th>
           <th scope="col"><span jhiTranslate="auctionApp.bid.auctionId">Auction Id</span></th>
           <th scope="col"></th>
         </tr>
@@ -49,11 +48,6 @@
           <td>{{ bid.bidTime | formatMediumDatetime }}</td>
           <td>{{ bid.amount }}</td>
           <td>{{ bid.ccy }}</td>
-          <td>
-            <div *ngIf="bid.userId">
-              <a [routerLink]="['/users', bid.userId?.id, 'view']">{{ bid.userId?.id }}</a>
-            </div>
-          </td>
           <td>
             <div *ngIf="bid.auctionId">
               <a [routerLink]="['/auction', bid.auctionId?.id, 'view']">{{ bid.auctionId?.id }}</a>

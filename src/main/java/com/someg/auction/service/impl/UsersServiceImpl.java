@@ -5,12 +5,8 @@ import com.someg.auction.repository.UsersRepository;
 import com.someg.auction.service.UsersService;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,26 +44,8 @@ public class UsersServiceImpl implements UsersService {
         return usersRepository
             .findById(users.getId())
             .map(existingUsers -> {
-                if (users.getUsername() != null) {
-                    existingUsers.setUsername(users.getUsername());
-                }
-                if (users.getName() != null) {
-                    existingUsers.setName(users.getName());
-                }
-                if (users.getSurname() != null) {
-                    existingUsers.setSurname(users.getSurname());
-                }
-                if (users.getTel() != null) {
-                    existingUsers.setTel(users.getTel());
-                }
-                if (users.getEmail() != null) {
-                    existingUsers.setEmail(users.getEmail());
-                }
-                if (users.getSsn() != null) {
-                    existingUsers.setSsn(users.getSsn());
-                }
-                if (users.getStatus() != null) {
-                    existingUsers.setStatus(users.getStatus());
+                if (users.getUserName() != null) {
+                    existingUsers.setUserName(users.getUserName());
                 }
 
                 return existingUsers;
@@ -77,22 +55,9 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<Users> findAll(Pageable pageable) {
+    public List<Users> findAll() {
         log.debug("Request to get all Users");
-        return usersRepository.findAll(pageable);
-    }
-
-    /**
-     *  Get all the users where Id is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true)
-    public List<Users> findAllWhereIdIsNull() {
-        log.debug("Request to get all users where Id is null");
-        return StreamSupport
-            .stream(usersRepository.findAll().spliterator(), false)
-            .filter(users -> users.getId() == null)
-            .collect(Collectors.toList());
+        return usersRepository.findAll();
     }
 
     @Override

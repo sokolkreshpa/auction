@@ -38,7 +38,7 @@ public class Auction implements Serializable {
 
     @OneToMany(mappedBy = "auctionId")
     @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-    @JsonIgnoreProperties(value = { "userId", "auctionId" }, allowSetters = true)
+    @JsonIgnoreProperties(value = { "auctionId" }, allowSetters = true)
     private Set<Bid> ids = new HashSet<>();
 
     @ManyToOne

@@ -26,12 +26,6 @@
         <dd>
           <span>{{ bid.ccy }}</span>
         </dd>
-        <dt><span jhiTranslate="auctionApp.bid.userId">User Id</span></dt>
-        <dd>
-          <div *ngIf="bid.userId">
-            <a [routerLink]="['/users', bid.userId?.id, 'view']">{{ bid.userId?.id }}</a>
-          </div>
-        </dd>
         <dt><span jhiTranslate="auctionApp.bid.auctionId">Auction Id</span></dt>
         <dd>
           <div *ngIf="bid.auctionId">

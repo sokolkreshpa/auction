@@ -17,13 +17,7 @@ export class UsersUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    username: [],
-    name: [],
-    surname: [],
-    tel: [],
-    email: [],
-    ssn: [],
-    status: [],
+    userName: [],
   });
 
   constructor(protected usersService: UsersService, protected activatedRoute: ActivatedRoute, protected fb: FormBuilder) {}
@@ -70,13 +64,7 @@ export class UsersUpdateComponent implements OnInit {
   protected updateForm(users: IUsers): void {
     this.editForm.patchValue({
       id: users.id,
-      username: users.username,
-      name: users.name,
-      surname: users.surname,
-      tel: users.tel,
-      email: users.email,
-      ssn: users.ssn,
-      status: users.status,
+      userName: users.userName,
     });
   }
 
@@ -84,13 +72,7 @@ export class UsersUpdateComponent implements OnInit {
     return {
       ...new Users(),
       id: this.editForm.get(['id'])!.value,
-      username: this.editForm.get(['username'])!.value,
-      name: this.editForm.get(['name'])!.value,
-      surname: this.editForm.get(['surname'])!.value,
-      tel: this.editForm.get(['tel'])!.value,
-      email: this.editForm.get(['email'])!.value,
-      ssn: this.editForm.get(['ssn'])!.value,
-      status: this.editForm.get(['status'])!.value,
+      userName: this.editForm.get(['userName'])!.value,
     };
   }
 }

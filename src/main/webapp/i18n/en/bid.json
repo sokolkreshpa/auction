@@ -21,7 +21,6 @@
       "bidTime": "Bid Time",
       "amount": "Amount",
       "ccy": "Ccy",
-      "userId": "User Id",
       "auctionId": "Auction Id"
     }
   }

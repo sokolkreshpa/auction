@@ -8,8 +8,6 @@ import { of, Subject, from } from 'rxjs';
 
 import { BidService } from '../service/bid.service';
 import { IBid, Bid } from '../bid.model';
-import { IUsers } from 'app/entities/users/users.model';
-import { UsersService } from 'app/entities/users/service/users.service';
 import { IAuction } from 'app/entities/auction/auction.model';
 import { AuctionService } from 'app/entities/auction/service/auction.service';
 
@@ -20,7 +18,6 @@ describe('Bid Management Update Component', () => {
   let fixture: ComponentFixture<BidUpdateComponent>;
   let activatedRoute: ActivatedRoute;
   let bidService: BidService;
-  let usersService: UsersService;
   let auctionService: AuctionService;
 
   beforeEach(() => {
@@ -43,31 +40,12 @@ describe('Bid Management Update Component', () => {
     fixture = TestBed.createComponent(BidUpdateComponent);
     activatedRoute = TestBed.inject(ActivatedRoute);
     bidService = TestBed.inject(BidService);
-    usersService = TestBed.inject(UsersService);
     auctionService = TestBed.inject(AuctionService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should call userId query and add missing value', () => {
-      const bid: IBid = { id: 456 };
-      const userId: IUsers = { id: 11070 };
-      bid.userId = userId;
-
-      const userIdCollection: IUsers[] = [{ id: 81557 }];
-      jest.spyOn(usersService, 'query').mockReturnValue(of(new HttpResponse({ body: userIdCollection })));
-      const expectedCollection: IUsers[] = [userId, ...userIdCollection];
-      jest.spyOn(usersService, 'addUsersToCollectionIfMissing').mockReturnValue(expectedCollection);
-
-      activatedRoute.data = of({ bid });
-      comp.ngOnInit();
-
-      expect(usersService.query).toHaveBeenCalled();
-      expect(usersService.addUsersToCollectionIfMissing).toHaveBeenCalledWith(userIdCollection, userId);
-      expect(comp.userIdsCollection).toEqual(expectedCollection);
-    });
-
     it('Should call Auction query and add missing value', () => {
       const bid: IBid = { id: 456 };
       const auctionId: IAuction = { id: 96166 };
@@ -89,8 +67,6 @@ describe('Bid Management Update Component', () => {
 
     it('Should update editForm', () => {
       const bid: IBid = { id: 456 };
-      const userId: IUsers = { id: 13669 };
-      bid.userId = userId;
       const auctionId: IAuction = { id: 61661 };
       bid.auctionId = auctionId;
 
@@ -98,7 +74,6 @@ describe('Bid Management Update Component', () => {
       comp.ngOnInit();
 
       expect(comp.editForm.value).toEqual(expect.objectContaining(bid));
-      expect(comp.userIdsCollection).toContain(userId);
       expect(comp.auctionsSharedCollection).toContain(auctionId);
     });
   });
@@ -168,14 +143,6 @@ describe('Bid Management Update Component', () => {
   });
 
   describe('Tracking relationships identifiers', () => {
-    describe('trackUsersById', () => {
-      it('Should return tracked Users primary key', () => {
-        const entity = { id: 123 };
-        const trackResult = comp.trackUsersById(0, entity);
-        expect(trackResult).toEqual(entity.id);
-      });
-    });
-
     describe('trackAuctionById', () => {
       it('Should return tracked Auction primary key', () => {
         const entity = { id: 123 };

@@ -18,14 +18,7 @@
         "title": "Users"
       },
       "id": "ID",
-      "username": "Username",
-      "name": "Name",
-      "surname": "Surname",
-      "tel": "Tel",
-      "email": "Email",
-      "ssn": "Ssn",
-      "status": "Status",
-      "id": "Id"
+      "userName": "User Name"
     }
   }
 }

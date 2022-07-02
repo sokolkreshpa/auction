@@ -3,8 +3,6 @@ package com.someg.auction.service;
 import com.someg.auction.domain.Users;
 import java.util.List;
 import java.util.Optional;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 /**
  * Service Interface for managing {@link Users}.
@@ -37,16 +35,9 @@ public interface UsersService {
     /**
      * Get all the users.
      *
-     * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<Users> findAll(Pageable pageable);
-    /**
-     * Get all the Users where Id is {@code null}.
-     *
-     * @return the {@link List} of entities.
-     */
-    List<Users> findAllWhereIdIsNull();
+    List<Users> findAll();
 
     /**
      * Get the "id" users.

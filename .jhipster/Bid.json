@@ -25,13 +25,6 @@
   "readOnly": false,
   "relationships": [
     {
-      "otherEntityName": "users",
-      "otherEntityRelationshipName": "id",
-      "ownerSide": true,
-      "relationshipName": "userId",
-      "relationshipType": "one-to-one"
-    },
-    {
       "otherEntityName": "auction",
       "otherEntityRelationshipName": "id",
       "relationshipName": "auctionId",
