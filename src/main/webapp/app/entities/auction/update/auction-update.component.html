@@ -1,0 +1,87 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-auction-heading" data-cy="AuctionCreateUpdateHeading" jhiTranslate="auctionApp.auction.home.createOrEditLabel">
+        Create or edit a Auction
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="auctionApp.auction.bidStartTime" for="field_bidStartTime">Bid Start Time</label>
+          <div class="d-flex">
+            <input
+              id="field_bidStartTime"
+              data-cy="bidStartTime"
+              type="datetime-local"
+              class="form-control"
+              name="bidStartTime"
+              formControlName="bidStartTime"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="auctionApp.auction.bidEndTime" for="field_bidEndTime">Bid End Time</label>
+          <div class="d-flex">
+            <input
+              id="field_bidEndTime"
+              data-cy="bidEndTime"
+              type="datetime-local"
+              class="form-control"
+              name="bidEndTime"
+              formControlName="bidEndTime"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="auctionApp.auction.amount" for="field_amount">Amount</label>
+          <input type="number" class="form-control" name="amount" id="field_amount" data-cy="amount" formControlName="amount" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="auctionApp.auction.ccy" for="field_ccy">Ccy</label>
+          <input type="text" class="form-control" name="ccy" id="field_ccy" data-cy="ccy" formControlName="ccy" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="auctionApp.auction.productId" for="field_productId">Product Id</label>
+          <select class="form-control" id="field_productId" data-cy="productId" name="productId" formControlName="productId">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="productOption.id === editForm.get('productId')!.value?.id ? editForm.get('productId')!.value : productOption"
+              *ngFor="let productOption of productsSharedCollection; trackBy: trackProductById"
+            >
+              {{ productOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

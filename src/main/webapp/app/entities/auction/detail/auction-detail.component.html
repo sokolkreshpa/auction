@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="auction">
+      <h2 data-cy="auctionDetailsHeading"><span jhiTranslate="auctionApp.auction.detail.title">Auction</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ auction.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.auction.bidStartTime">Bid Start Time</span></dt>
+        <dd>
+          <span>{{ auction.bidStartTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.auction.bidEndTime">Bid End Time</span></dt>
+        <dd>
+          <span>{{ auction.bidEndTime | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.auction.amount">Amount</span></dt>
+        <dd>
+          <span>{{ auction.amount }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.auction.ccy">Ccy</span></dt>
+        <dd>
+          <span>{{ auction.ccy }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.auction.productId">Product Id</span></dt>
+        <dd>
+          <div *ngIf="auction.productId">
+            <a [routerLink]="['/product', auction.productId?.id, 'view']">{{ auction.productId?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/auction', auction.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

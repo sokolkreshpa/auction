@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="product">
+      <h2 data-cy="productDetailsHeading"><span jhiTranslate="auctionApp.product.detail.title">Product</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ product.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.product.productname">Productname</span></dt>
+        <dd>
+          <span>{{ product.productname }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.product.productSpecification">Product Specification</span></dt>
+        <dd>
+          <span>{{ product.productSpecification }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.product.actualCost">Actual Cost</span></dt>
+        <dd>
+          <span>{{ product.actualCost }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.product.ccy">Ccy</span></dt>
+        <dd>
+          <span>{{ product.ccy }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.product.creationDate">Creation Date</span></dt>
+        <dd>
+          <span>{{ product.creationDate | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.product.productCategoryId">Product Category Id</span></dt>
+        <dd>
+          <div *ngIf="product.productCategoryId">
+            <a [routerLink]="['/product-category', product.productCategoryId?.id, 'view']">{{ product.productCategoryId?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.product.locationId">Location Id</span></dt>
+        <dd>
+          <div *ngIf="product.locationId">
+            <a [routerLink]="['/location', product.locationId?.id, 'view']">{{ product.locationId?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/product', product.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

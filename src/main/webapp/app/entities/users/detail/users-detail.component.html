@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="users">
+      <h2 data-cy="usersDetailsHeading"><span jhiTranslate="auctionApp.users.detail.title">Users</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ users.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.users.username">Username</span></dt>
+        <dd>
+          <span>{{ users.username }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.users.name">Name</span></dt>
+        <dd>
+          <span>{{ users.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.users.surname">Surname</span></dt>
+        <dd>
+          <span>{{ users.surname }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.users.tel">Tel</span></dt>
+        <dd>
+          <span>{{ users.tel }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.users.email">Email</span></dt>
+        <dd>
+          <span>{{ users.email }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.users.ssn">Ssn</span></dt>
+        <dd>
+          <span>{{ users.ssn }}</span>
+        </dd>
+        <dt><span jhiTranslate="auctionApp.users.status">Status</span></dt>
+        <dd>
+          <span>{{ users.status }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/users', users.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
